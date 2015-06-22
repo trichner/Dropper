@@ -160,8 +160,6 @@ module.exports = function(grunt) {
 					   pkg.description + ' \n\n' +
 					   '- [Demo](' + pkg.demo + ') \n' +
 					   '- [Documentation](' + pkg.homepage + ') \n\n' +
-					   '#### Bower Support \n' +
-					   '`bower install ' + pkg.name + '` ' +
 					   extra;
 
 		grunt.file.write(destination, markdown);

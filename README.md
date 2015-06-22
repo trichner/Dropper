@@ -8,5 +8,13 @@ A jQuery plugin for simple drag and drop uploads. Part of the Formstone Library.
 - [Demo](http://classic.formstone.it/components/Dropper/demo/index.html) 
 - [Documentation](http://classic.formstone.it/dropper/) 
 
-#### Bower Support 
-`bower install Dropper` 
+
+
+---
+
+## Fairfax fork
+
+Extra features added include:
+
+* the ability to specifiy a list of valid file extensions
+* the ability to have no maxSize limit

@@ -17,9 +17,10 @@
 		action: "",
 		label: "Drag and drop files or click to select",
 		maxQueue: 2,
-		maxSize: 5242880, // 5 mb
+		maxSize: 0, // 0 = no limit, otherwise use something like 5242880 (5 mb)
 		postData: {},
-		postKey: "file"
+		postKey: "file",
+		validExtensions: [] // no extensions means all are valid
 	};
 
 	/**
@@ -309,7 +310,21 @@
 	 * @param formData [object] "Target form"
 	 */
 	function _uploadFile(data, file, formData) {
-		if (file.size >= data.maxSize) {
+		if (data.validExtensions.length) {
+			var ext = file.name.split('.')[file.name.split('.').length - 1];
+            var re = new RegExp(ext);
+			var filtered = data.validExtensions.filter(function(item){
+				return re.test(item);
+			});
+
+			// Does our file extension exist in the array of allowable extensions?
+			if (!filtered.length) {
+				file.error = true;
+				data.$dropper.trigger("fileError.dropper", [ file, "Invalid extension" ]);
+
+				_checkQueue(data);
+			}
+		} else if (data.maxSize && file.size >= data.maxSize) {
 			file.error = true;
 			data.$dropper.trigger("fileError.dropper", [ file, "Too large" ]);
 
