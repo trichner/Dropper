@@ -1,3 +1,11 @@
+/*
+ * Dropper v1.0.1b - 2015-06-23
+ * A jQuery plugin for simple drag and drop uploads. Part of the Formstone Library.
+ * http://classic.formstone.it/dropper/
+ *
+ * Copyright 2015 Ben Plum; MIT Licensed
+ */
+
 ;(function ($, window) {
 	"use strict";
 
@@ -197,11 +205,13 @@
 	 * @description Handles drop to dropzone
 	 * @param e [object] "Event data"
 	 */
-	function _onDrop(e) {
+	function _onDrop(e, file) {
+
 		e.preventDefault();
 
 		var data = e.data,
-			files = e.originalEvent.dataTransfer.files;
+			// files allows us to make this method testable
+			files = [file] || e.originalEvent.dataTransfer.files;
 
 		data.$dropper.removeClass("dropping");
 
@@ -312,7 +322,7 @@
 	function _uploadFile(data, file, formData) {
 		if (data.validExtensions.length) {
 			var ext = file.name.split('.')[file.name.split('.').length - 1];
-            var re = new RegExp(ext);
+			var re = new RegExp(ext);
 			var filtered = data.validExtensions.filter(function(item){
 				return re.test(item);
 			});
@@ -324,7 +334,9 @@
 
 				_checkQueue(data);
 			}
-		} else if (data.maxSize && file.size >= data.maxSize) {
+		}
+
+		if (data.maxSize && file.size >= data.maxSize) {
 			file.error = true;
 			data.$dropper.trigger("fileError.dropper", [ file, "Too large" ]);
 
