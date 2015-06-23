@@ -329,7 +329,9 @@
 			data.$dropper.trigger("fileError.dropper", [ file, "Too large" ]);
 
 			_checkQueue(data);
-		} else {
+		}
+
+		if (!file.error) {
 			file.started = true;
 			file.transfer = $.ajax({
 				url: data.action,

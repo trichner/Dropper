@@ -1,5 +1,5 @@
 /* 
- * Dropper v1.0.1a - 2015-06-23 
+ * Dropper v1.0.1b - 2015-06-23 
  * A jQuery plugin for simple drag and drop uploads. Part of the Formstone Library. 
  * http://classic.formstone.it/dropper/ 
  * 
@@ -337,7 +337,9 @@
 			data.$dropper.trigger("fileError.dropper", [ file, "Too large" ]);
 
 			_checkQueue(data);
-		} else {
+		}
+
+		if (!file.error) {
 			file.started = true;
 			file.transfer = $.ajax({
 				url: data.action,
