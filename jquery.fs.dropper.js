@@ -1,5 +1,5 @@
 /* 
- * Dropper v1.0.1b - 2015-06-23 
+ * Dropper v1.0.1b - 2015-06-24 
  * A jQuery plugin for simple drag and drop uploads. Part of the Formstone Library. 
  * http://classic.formstone.it/dropper/ 
  * 
@@ -219,7 +219,7 @@
 
 		var data = e.data,
 			// files allows us to make this method testable
-			files = [file] || e.originalEvent.dataTransfer.files;
+			files = file ? [file] : e.originalEvent.dataTransfer.files;
 
 		data.$dropper.removeClass("dropping");
 

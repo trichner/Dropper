@@ -211,7 +211,7 @@
 
 		var data = e.data,
 			// files allows us to make this method testable
-			files = [file] || e.originalEvent.dataTransfer.files;
+			files = file ? [file] : e.originalEvent.dataTransfer.files;
 
 		data.$dropper.removeClass("dropping");
 
