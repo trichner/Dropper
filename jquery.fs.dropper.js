@@ -1,5 +1,5 @@
 /* 
- * Dropper v1.0.1b - 2015-06-24 
+ * Dropper v1.0.1b - 2015-08-04 
  * A jQuery plugin for simple drag and drop uploads. Part of the Formstone Library. 
  * http://classic.formstone.it/dropper/ 
  * 
@@ -262,7 +262,19 @@
 
 		data.$dropper.trigger("start.dropper", [ newFiles ]);
 
-		_checkQueue(data);
+        // data.action may be either a string or a promise.
+        // Wrapping it in another promise means that both will work.
+		window.Promise.resolve(data.action)
+			.then(
+				function(action) {
+					data.action = action;
+					_checkQueue(data);
+				},
+				function(err) {
+					throw err;
+				}
+			);
+
 	}
 
 	/**
