@@ -359,8 +359,8 @@
 			file.started = true;
 			file.transfer = $.ajax({
 				url: data.action,
-				data: formData,
-				type: "POST",
+				data: data.httpMethod === 'PUT' ? file.file : formData,
+                type: data.httpMethod || 'POST',
 				contentType:false,
 				processData: false,
 				cache: false,
