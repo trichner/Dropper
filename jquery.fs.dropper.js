@@ -1,5 +1,5 @@
 /* 
- * Dropper v1.0.1g - 2015-08-31 
+ * Dropper v1.0.1g - 2015-09-28 
  * A jQuery plugin for simple drag and drop uploads. Part of the Formstone Library. 
  * http://classic.formstone.it/dropper/ 
  * 
@@ -264,16 +264,23 @@
 
         // data.action may be either a string or a promise.
         // Wrapping it in another promise means that both will work.
-        window.Promise.resolve(data.action)
-            .then(
-                function(action) {
-                    data.action = action;
-                    _checkQueue(data);
-                },
-                function(err) {
-                    throw err;
-                }
-            );
+        if (data.action.then) {
+            // We have a promise
+            window.Promise.resolve(data.action)
+                .then(
+                    function(action) {
+                        data.action = action;
+                        _checkQueue(data);
+                    },
+                    function(err) {
+                        throw err;
+                    }
+                );
+
+        } else {
+            // We have a string
+            _checkQueue(data);
+        }
 
     }
 

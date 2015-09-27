@@ -1,5 +1,11 @@
 ## Fairfax fork
 
+### Building
+
+Ensure that you *only* edit the files in the `src` folder, and then run the default `Grunt` task.
+
+### Extra features
+
 Extra features added include:
 
 * the ability to specifiy a list of valid file extensions
