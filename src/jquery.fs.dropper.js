@@ -276,6 +276,11 @@
 
     }
 
+    // wraps string into utf8 blob
+    function _utf8Blob(str) {
+        return new Blob([str], {type: "text/plain; charset=utf-8"});
+    }
+
     /**
      * @method private
      * @name _checkQueue
@@ -300,7 +305,9 @@
                 if (!data.queue[j].started) {
                     var formData = new FormData();
 
-                    formData.append(data.postKey, data.queue[j].file);
+                    var file = data.queue[j].file;
+                    formData.append(data.postKey, file);
+                    formData.append("filename", _utf8Blob(file.name));
 
                     for (var k in data.postData) {
                         if (data.postData.hasOwnProperty(k)) {
